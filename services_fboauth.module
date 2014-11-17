@@ -23,33 +23,33 @@ function services_fboauth_services_resources() {
               'description' => 'A valid Facebook access token',
               'source' =>	'data',
               'optional' => FALSE,
-              ),
             ),
-          'access callback' => 'services_access_menu',
           ),
-        )
-      )
-    );
+          'access callback' => 'services_access_menu',
+        ),
+      ),
+    ),
+  );
   return $resource;
 }
 
 /**
  * Allow FBOAUTH login or register via services.
  *
- * @param $data,
+ * @param array $data
  *   An associative array containing:
  *   - access_token: a valid Facebook access token (not access code).
  *     The requesting application must have already gone through the
  *     process of requesting permissions, getting access code, requesting
  *     access token, etc.
  *
- * @return
+ * @return object
  *   A valid session object, just like _user_resource_login().
  */
 function services_fboauth_connect($data) {
   global $user;
   if (user_is_logged_in()) {
-    // user is already logged in
+    // User is already logged in.
     return services_error(t('Already logged in as @user.', array('@user' => $user->name)), 406);
   }
 
@@ -85,10 +85,10 @@ function services_fboauth_connect($data) {
 /**
  * A helper function to authenticate a user.
  *
- * @param $account
+ * @param object $account
  *   A user account object to authenticate.
  *
- * @return
+ * @return object
  *   A valid session object or error is accunt is blocked.
  */
 function services_fboauth_login_user($account) {
